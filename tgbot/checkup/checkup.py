@@ -4,17 +4,18 @@ import checkup.db
 import requests
 import json
 from tinydb import TinyDB, Query
-
+import ast
 db = TinyDB('data.json')
 
 default_accs={'instagram':'real.rybk',
               'facebook':'giulio.violante.754',
               'twitter':'rybkinxd',
               'ok':'580291599995',
-              'whatsapp':'87073373318',
-              'telegram':'87073373318',
-              'viber':'87073373318',
+              'whatsapp':'77073373318',
+              'telegram':'77073373318',
+              'viber':'77073373318',
               'tiktok':'fcbarcelona',
+              'snapchat':'+77772701828',
               'youtube':'https://www.youtube.com/c/ivarlamov',
               'wechat':'+77078801908'}
 class Checkup_system:
@@ -32,10 +33,11 @@ class Checkup_system:
         pass
     
     def _get_servers_medias(self):
-        return CONFIG.vendors
+        data=(requests.get('http://80.87.198.158/get_config').text)
+        return ast.literal_eval(data)
     
     def _get_servers(self):
-        return list(CONFIG.vendors.keys())
+        return list(self._get_servers_medias().keys())
     
     def _get_server_status(self,server):
         pass
@@ -45,7 +47,7 @@ class Checkup_system:
     
     def _get_medias(self):
         medias=[]
-        for medias_array in CONFIG.vendors.values():
+        for medias_array in self._get_servers_medias().values():
             medias+= medias_array
         return set(medias)
     
