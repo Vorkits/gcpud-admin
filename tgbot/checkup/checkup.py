@@ -1,4 +1,3 @@
-from jinja2 import pass_eval_context
 import CONFIG
 import checkup.db
 import requests
