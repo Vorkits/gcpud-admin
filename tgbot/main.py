@@ -28,9 +28,10 @@ def get_start_message():
 
     return start_message
 
-def check_server():
-    checkup.Checkup_system().check_servers_info()
+def check_server(tg_user_id):
+    result=checkup.Checkup_system().check_servers_info()
     db.truncate()
+    bot.send_message(tg_user_id,result)
 def async_checkup():
     my_thread = threading.Thread(target=check_server)
     # my_thread = threading.Thread(target=print)
@@ -57,7 +58,7 @@ def longname(call):
 def send_welcome(message):
     markup = types.InlineKeyboardMarkup()
     markup.add(types.InlineKeyboardButton(text='Статус серверов-соцсетей',callback_data="status"))
-    markup.add(types.InlineKeyboardButton(text='Проверить работоспособность',callback_data="checkup"))
+    # markup.add(types.InlineKeyboardButton(text='Проверить работоспособность',callback_data="checkup"))
 
     bot.send_message(message.chat.id, get_start_message(),reply_markup=markup)
  
