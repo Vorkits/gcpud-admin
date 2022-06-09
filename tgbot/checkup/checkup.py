@@ -55,10 +55,8 @@ class Checkup_system:
         
         return json.dumps(data[0], indent=2) if data else ''
     def check_servers_info(self):
-        if self.checkup_now:
-            return 'Уже идет проверка системы, ожидайте уведомления'
+        
         db.truncate()
-        self.checkup_now=True
         server_media_dict=self._get_servers_medias()
         return_dict={}
         for server in server_media_dict.keys():
